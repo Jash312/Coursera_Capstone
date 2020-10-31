@@ -1,28 +1,26 @@
-# COVID - Maximum Occupany Tracking
+# Car Accident Severity Prediction Model For City of Seattle
 
-Sadhana Sainarayanan
+Jai Vigneshwar
 
-Video: 
 
-<iframe src="https://player.vimeo.com/video/471266004" width="640" height="361" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 
 ## Introduction
 <p align = "justify">
-This project aims to detect the occupancy a confined/ closed area to ensure that the maximum occupany of the space is not exceeded to ensure social distancing measures. There are parallel sensing systems to assess the occupancy. First, a Photosensitive Light sensor module was used to assess movement near the door (Occupancy instance). Further, a break beam sensor has been added to the sensing system to aid detection of people entering and exiting the room. Once the maximum occupancy is reached a Red LED is triggered. </p>
+Car accidents are a leading cause of injuries. Over 5.6 million car accidents were reported in the United States in 2012. Of these, over 30,000 were fatal, and another 1.6 million involved other injuries. The damage they leave behind can be immense. The economic cost of car accidents is estimated to be $277 billion each year, or around $897 for every person living in the United States. While car accident injuries can vary from person to person and from crash to crash. However, if we can build a model to predict the severity of a car accident, that would avoid a lot of unnecessary accidents and injuries, even deaths. Therefore, the Seattle government is planning to use this model that alert drivers, health systems, and police to remind them to pay more attention to critical situations.
+Imagine a scenario that if there is a rainy day and you are planning to drive to another city. The model can predict the severity of the accident severity based on the condition of traffic, report the accident location, weather conditions, and other factors that provide you more options for traveling, reschedule, or drive more carefully. However, distraction and not paying enough attention while driving are important reasons that cause car accidents. This model will alert drivers driving more carefully and can be prevented by enacting harsher regulations.
+The target audience of this project is the Seattle government, police, rescue groups, and drivers. This model and its prediction will provide advice for decision making and prevent unnecessary accidents and injuries for the city of Seattle. </p>
 
-## Motivation
+## Data understanding:
 <p align = "justify">
-With social distancing becoming a highly important due to the COVID pandemic, it has become important to ensure that the maximum occupancy in any room or confined space is not exceeded. CDC regulations require that occupancy limit of public spaces is not exceeded. It is thus important to a person attempting to enter the room incase the maximum occupancy is reached.</p>
+In my consideration, I will drop some non-critical and indecisive attributes. The following features which I choose to remain for building model and prediction.
+ <ul>
+<li> UNDERINFL which means whether or not the driver was under the influence.</li>
+<li> WEATHER which represents the weather condition while the collision occurs.</li>
+<li> ROADCOND which represents the road conditions while the collision occurs.</li>
+<li> LIGHTCOND which represents the light conditions while the collision occurs.</li> </ul>
+However, the existent data contains null values in some records, the data has to be preprocessed before further processing and analyzing.</p>
 
-## Goals
-<p align = "justify">
-The goal is to record the number of occupants in a room and assess if it has reached the maximum allowed occupancy according to guidlines and alert with an LED light once the capacity is reached. The following points give a breakdown of the goals:</p>
-<ul>
-<li> Sense entry and exit of people using the digital switch input and output of the photosensitive light sensor module and the signals from the break beam sensor. </li>
-<li> Monitor the signals from the sensors and publish them ton the Openchirp platform. </li>
- <li> Calculate the nuber of occupants in the room from the signals acquired from the sensors</li>
- <li> Compare the number against the set limit for the number of occupants in the room and set off a Red LED once the limit is reached. </li> </ul>
- 
+
 
 ## Methodology 
 
@@ -120,42 +118,9 @@ An object passing between the Emitter and Receiver interrupts the emitted light.
 The main working principles are the rectilinear propagation of light and its reflective properties.[4]</p>
 
 
-#### Sensor characteristics
 
-Sensing Distance: Approx 25cm / 10"
 
-Power Voltage: 3.3 - 5.5VDC
 
-Emitter Current Draw: 10mA @ 3.3V, 20mA @ 5V
-
-Output Current Capability of receiver: 100mA sink
-
-Transmitter/Receiver LED Angle: 10°
-
-Response Time: <2 ms
-
-Dimensions: 20mm x 10mm x 8mm / 0.8" x 0.4" x 0.3"
-
-Cable Length: 234mm / 9.2"
-
-Weight (of each half): ~3g[2][1]
-<p align = "center">
-<img src="https://github.com/SadhanaSai/12740-COVIDOccupancy/blob/main/breakbeam.jpg" width="200" height="200"></p>
-<p align = "center">Fig8: 5mm Break beam Sensor[2]</p>
-
-#### Applications
-<p align = "justify">
-This sensor could be used in speed timers, foot count detectors in various places.</p>
-
-#### Signal characteristics
-<p align = "justify">
-The signals output given by the break beam sensor are logical 1/0 outputs. 1 representing that the receiver received the IR beam. 0 representing that the beam was broken.</p>
-
-## Signal Conditioning and Processing
-<p align = "justify">
-Signals from the sensors were acquired in binary 0/1 format. This made it easier to identify instances of objects moving past the sensors.</p>
-<p align = "justify">
-If an object moves past the Photosensitive light sensor, the light intensity decreases and thus it outputs 1. and When the beam in the break beam sensor is broken, its values drops to 0 from its natural state 1.</p>
 
 ### Logic
 <p align = "justify">
@@ -200,49 +165,18 @@ If the Break beam sensor signal is first triggered and then the lightsensor is t
  </pre>
 
 ## Experiments and Results
-<p align = "justify">
-I had done multiple levels of testing and experimentation. First I tested the circuits and the code by using in animate objects as objects of interest that enter and leave a region. Assessed the efficiency in of the code and set the thresholds.</p>
 
-<p align = "center">
-<img src="https://github.com/SadhanaSai/12740-COVIDOccupancy/blob/main/circuit.jpeg" width="250" height="400"></p>
-<p align = "center">Fig9: Circuit</p>
 
-<p align = "justify">
-I had further used the common space in my apartment which had a single point of entrance and exit as my test field. I had placed the light sensor on the door frame, and taped the break beam sensor across the floor. The maximum occupancy was set to 3 people since the area was small.</p>
-
-<p align = "justify">
-With each entry the count of the number of people was set to increase by one and with each exit the number would decrease until the room is empty.</p>
-
-<p align = "justify">
-I had initially tested out the set up by my self. Further, this system was tested for a couple of hours. It counted the number of people in the room based on the data and triggered the LED once the set limit was reached.</p>
-
-<p align = "justify">The below plots show the signals after processing, and the occupant count created from the signals received. For the 30 minute period of this experiment, the signal based counts matched the ground truth.</p>
-
+## Appendix
+KNN Confusion Matrix
 <p align = "center">
 <img src="https://github.com/SadhanaSai/12740-COVIDOccupancy/blob/main/results.jpg"></p>
-<p align = "center">Fig10: Results obtained over 30 minutes</p>
-
-## Discussion
-<p align = "justify">
-This project was aimed at ensuring that maximum occupancy of a room is not crossed. This was done by using 2 sensors to detect the direction of motion and thus count the number of occupants in the room.</p>
-
-<p align = "justify">
-The data collected from the sensors was used to send commands to the actuator, in this case an LED. </p>
-
-<p align = "justify">
-The scope of this project is limited. There are better and more efficient ways to count the number of occupants in a room. The project allowed me to understand the principles behind the sensors used and how to use the sensors to create a primitive prototype of an occupancy estimator.</p>
-
-
-## Reference
-
-[1] simonprickett.dev. 2020. Using A Break Beam Sensor With Python And Raspberry Pi. [online] Available at: <https://simonprickett.dev/using-a-break-beam-sensor-with-python-and-raspberry-pi/> 
-
-[2] Industries, A., 2020. IR Break Beam Sensor - 3Mm Leds. [online] Adafruit.com. Available at: <https://www.adafruit.com/product/2167> 
-
-[3] En.wikipedia.org. 2020. Light. [online] Available at: <https://en.wikipedia.org/wiki/Light> 
-
-[4] Ia.omron.com. 2020. Overview Of Photoelectric Sensors | OMRON Industrial Automation. [online] Available at: <http://www.ia.omron.com/support/guide/43/introduction.html> 
-
-[5]  Utmel.com. 2020. Photoresistor Basics: Types, Principles And Applications - Utmel. [online] Available at: <https://www.utmel.com/blog/categories/resistor/photoresistor-basics-types-principles-and-applications> 
-
-[6] Robu.in | Indian Online Store | RC Hobby | Robotics. 2020. Buy Photosensitive LM393 Light Sensor LDR Module At Low Price. [online] Available at: <https://robu.in/product/lm393-photosensitive-light-dependent-control-sensor-module/> 
+Decision Tree Confusion Matrix
+<p align = "center">
+<img src="https://github.com/SadhanaSai/12740-COVIDOccupancy/blob/main/results.jpg"></p>
+Logistic Regression Confusion Matrix
+<p align = "center">
+<img src="https://github.com/SadhanaSai/12740-COVIDOccupancy/blob/main/results.jpg"></p>
+SVM Confusion Matrix
+<p align = "center">
+<img src="https://github.com/SadhanaSai/12740-COVIDOccupancy/blob/main/results.jpg"></p>
